@@ -1,23 +1,18 @@
-import React, { useState, createContext } from 'react';
-import './App.css';
+import React, { useState, createContext, Component } from 'react';
 
 const BatteryContext = createContext(50); //50 default value
 const OnlineContext = createContext();
 
-function Battery() {
-  return (
-    <BatteryContext.Consumer>
-      {
-        battery => (
-          <OnlineContext.Consumer>
-            {
-              online => <h1>Battery: {battery} Online: {String(online)}</h1>
-            }
-          </OnlineContext.Consumer>
-        )
-      }
-    </BatteryContext.Consumer>
-  )
+
+class Battery extends Component {
+  static contextType = BatteryContext;
+  
+  render() {
+    const battery = this.context;
+    return (
+      <h1>Battery: {battery}</h1>
+    )
+  }
 }
 
 function Middle() {
