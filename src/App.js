@@ -1,40 +1,13 @@
-import React, { Component, lazy, Suspense} from 'react';
+import React, { Component, useState } from "react";
 
-const About = lazy(() => import(/* webpackChunkName: "about"*/'./About.jsx'));
+function App(props) {
+  const [count, setCount] = useState(10);
 
-//ErrorBoundary
-
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      hasError: false
-    }
-  }
-
-    static getDerivedStateFromError(error) {
-      return {
-        hasError: true
-      }
-    }
-
-  // componentDidCatch() {
-  //   console.log('componentDidCatch')
-  //   this.setState({
-  //     hasError: true
-  //   })
-  // }
-
-  render() {
-    if (this.state.hasError) {
-      return <div>error</div>
-    }
-    return <div>
-      <Suspense fallback={<div>Loading</div>}>
-        <About></About>
-      </Suspense>
+  return (
+    <div>
+      count = {count}
     </div>
-  }
+  );
 }
 
 export default App;
