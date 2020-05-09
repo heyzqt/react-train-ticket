@@ -1,39 +1,40 @@
-import React, { useState, createContext, Component } from 'react';
+import React, { Component, lazy, Suspense} from 'react';
 
-const BatteryContext = createContext(50); //50 default value
-const OnlineContext = createContext();
+const About = lazy(() => import(/* webpackChunkName: "about"*/'./About.jsx'));
 
+//ErrorBoundary
 
-class Battery extends Component {
-  static contextType = BatteryContext;
-  
-  render() {
-    const battery = this.context;
-    return (
-      <h1>Battery: {battery}</h1>
-    )
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      hasError: false
+    }
   }
-}
 
-function Middle() {
-  return <Battery></Battery>
-}
+    static getDerivedStateFromError(error) {
+      return {
+        hasError: true
+      }
+    }
 
-function App() {
-  const [battery, setBattery] = useState(30);
-  const [online, setOnline] = useState(false);
+  // componentDidCatch() {
+  //   console.log('componentDidCatch')
+  //   this.setState({
+  //     hasError: true
+  //   })
+  // }
 
-  return (
-    <BatteryContext.Provider value={battery}>
-      <OnlineContext.Provider value={online}>
-        <div className="App">
-          <Middle/>
-          <button type="button" onClick={() => setBattery(battery + 1)}>change value</button>
-          <button type="button" onClick={() => setOnline(!online)}>switch online</button>
-        </div>
-      </OnlineContext.Provider>
-    </BatteryContext.Provider>
-  );
+  render() {
+    if (this.state.hasError) {
+      return <div>error</div>
+    }
+    return <div>
+      <Suspense fallback={<div>Loading</div>}>
+        <About></About>
+      </Suspense>
+    </div>
+  }
 }
 
 export default App;
