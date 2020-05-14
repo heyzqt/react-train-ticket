@@ -3,8 +3,7 @@ import "./Jounary.scss";
 import switchImg from "../imgs/switch.svg";
 
 function Jounary(props) {
-
-    const exchangeFromTo = () => {};
+  const { from, to, showCitySelector, exchangeFromTo } = props;
 
   return (
     <div className="jounary">
@@ -13,8 +12,8 @@ function Jounary(props) {
           type="text"
           readOnly
           name="from"
-          placeholder="北京"
-          className="journey-input journey-from"
+          value={from}
+          className="jounary-input jounary-from"
         ></input>
       </div>
       <div className="jounary-switch" onClick={exchangeFromTo}>
@@ -25,7 +24,7 @@ function Jounary(props) {
           type="text"
           readOnly
           name="to"
-          placeholder="上海"
+          value={to}
           className="jounary-input jounary-to"
         ></input>
       </div>

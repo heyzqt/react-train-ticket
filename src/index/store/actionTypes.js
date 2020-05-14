@@ -1,0 +1,2 @@
+export const EXCHANGE_CITY = "EXCHANGE_CITY";
+export const SHOW_SELECT_CITY = "SHOW_SELECT_CITY";
