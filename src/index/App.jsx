@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import "./App.css";
 
 import Header from "../common/Header";
+import Jounary from "./components/Jounary";
 
 function App(props) {
   const onBack = useCallback(() => {
@@ -12,12 +13,17 @@ function App(props) {
   return (
     <div>
       <Header title="火车票" onBack={onBack}></Header>
+      <Jounary></Jounary>
     </div>
   );
 }
 
-const mapStateToProps = (state) => {};
+const mapStateToProps = (state) => {
+  return {}
+};
 
-const mapDispatchToProps = (dispatch) => {};
+const mapDispatchToProps = (dispatch) => {
+  return {}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
