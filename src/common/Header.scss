@@ -1,0 +1,27 @@
+.header {
+    width: 100%;
+    height: 40px;
+    background: #00c9e2;
+    color: #fff;
+    font-size: .18rem;
+    text-align: center;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 2;
+
+    .header-title {
+        height: 40px;
+        line-height: 40px;
+    }
+}
+
+.top_header {
+    background: linear-gradient(90deg, #00c9e2 3%, #00e4f5 92%);
+}
+
+.header-back {
+    position: absolute;
+    left: 0;
+}
+

@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { connect } from "react-redux";
 import "./App.css";
 
+import Header from "../common/Header";
+
 function App(props) {
-  return <div>hello heyzqt</div>;
+  const onBack = useCallback(() => {
+    window.history.back();
+  });
+
+  return (
+    <div>
+      <Header title="火车票" onBack={onBack}></Header>
+    </div>
+  );
 }
 
 const mapStateToProps = (state) => {};

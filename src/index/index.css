@@ -50,11 +50,10 @@ option {
 }
 
 body {
-    min-width: 320px;
     max-width: 540px;
+    height: 100%;
     font-size: 16px;
     margin: 0 auto;
-    padding-top: 44px;
 }
 
 .hidden,
