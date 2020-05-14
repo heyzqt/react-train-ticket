@@ -9,7 +9,7 @@ const composeEnhancers =
 
 const store = createStore(
   reducers,
-  { from: "深圳", to: "成都" },
+  { from: "深圳", to: "成都", isCitySelectorVisible: false },
   composeEnhancers(applyMiddleware(thunk))
 );
 

@@ -8,3 +8,7 @@ export const showCitySelector = (isStart) => ({
   type: actionTypes.SHOW_SELECT_CITY,
   isStart
 });
+
+export const hideCitySelector = () => ({
+  type: actionTypes.HIDE_SELECT_CITY,
+})

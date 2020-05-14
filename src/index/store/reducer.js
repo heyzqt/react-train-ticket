@@ -11,7 +11,13 @@ export default (state = {}, action) => {
     case actionTypes.SHOW_SELECT_CITY:
       return {
         ...state,
+        isCitySelectorVisible: true,
         isStart: action.isStart
+      };
+    case actionTypes.HIDE_SELECT_CITY:
+      return {
+        ...state,
+        isCitySelectorVisible: false
       };
     default:
       return state;

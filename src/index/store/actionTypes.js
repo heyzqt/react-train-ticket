@@ -1,2 +1,3 @@
 export const EXCHANGE_CITY = "EXCHANGE_CITY";
 export const SHOW_SELECT_CITY = "SHOW_SELECT_CITY";
+export const HIDE_SELECT_CITY = "HIDE_SELECT_CITY";
