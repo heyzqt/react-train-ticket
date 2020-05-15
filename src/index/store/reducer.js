@@ -19,6 +19,16 @@ export default (state = {}, action) => {
         ...state,
         isCitySelectorVisible: false
       };
+    case actionTypes.CITY_DATA_LOADING:
+      return {
+        ...state,
+        isLoadingCityData: action.isLoading
+      };
+    case actionTypes.GET_CITY_DATA:
+      return {
+        ...state,
+        cityData: action.data
+      };
     default:
       return state;
   }

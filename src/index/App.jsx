@@ -13,6 +13,8 @@ function App(props) {
     from,
     to,
     isCitySelectorVisible,
+    cityData,
+    isLoadingCityData,
     showCitySelector,
     hideCitySelector,
     dispatch
@@ -35,7 +37,8 @@ function App(props) {
   const cityCbs = useMemo(() => {
     return bindActionCreators(
       {
-        onBack: actions.hideCitySelector
+        onBack: actions.hideCitySelector,
+        fetchCityData: actions.fetchCityData
       },
       dispatch
     );
@@ -47,7 +50,12 @@ function App(props) {
       <form className="form">
         <Jounary from={from} to={to} {...cbs}></Jounary>
       </form>
-      <CitySelector show={isCitySelectorVisible} {...cityCbs}></CitySelector>
+      <CitySelector
+        show={isCitySelectorVisible}
+        cityData={cityData}
+        isLoading={isLoadingCityData}
+        {...cityCbs}
+      ></CitySelector>
     </div>
   );
 }
