@@ -6,9 +6,9 @@ export const exchangeFromTo = () => ({
   type: actionTypes.EXCHANGE_CITY
 });
 
-export const showCitySelector = (isStart) => ({
+export const showCitySelector = (isClickFrom) => ({
   type: actionTypes.SHOW_SELECT_CITY,
-  isStart
+  isClickFrom
 });
 
 export const hideCitySelector = () => ({
@@ -58,3 +58,25 @@ export const fetchCityData = () => {
       });
   };
 };
+
+export const setSelectedCity = (name) => {
+  return (dispatch, getState) => {
+    const { isClickFrom } = getState();
+    if (isClickFrom) {
+      dispatch(setFromCity(name));
+    } else {
+      dispatch(setToCity(name));
+    }
+    dispatch(hideCitySelector());
+  };
+};
+
+const setFromCity = (from) => ({
+  type: actionTypes.SET_FROM_CITY,
+  from
+});
+
+const setToCity = (to) => ({
+  type: actionTypes.SET_TO_CITY,
+  to
+});

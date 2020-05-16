@@ -12,7 +12,7 @@ export default (state = {}, action) => {
       return {
         ...state,
         isCitySelectorVisible: true,
-        isStart: action.isStart
+        isClickFrom: action.isClickFrom
       };
     case actionTypes.HIDE_SELECT_CITY:
       return {
@@ -28,6 +28,16 @@ export default (state = {}, action) => {
       return {
         ...state,
         cityData: action.data
+      };
+    case actionTypes.SET_FROM_CITY:
+      return {
+        ...state,
+        from: action.from
+      };
+    case actionTypes.SET_TO_CITY:
+      return {
+        ...state,
+        to: action.to
       };
     default:
       return state;

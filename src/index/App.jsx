@@ -17,6 +17,7 @@ function App(props) {
     isLoadingCityData,
     showCitySelector,
     hideCitySelector,
+    setSelectedCity,
     dispatch
   } = props;
 
@@ -38,7 +39,8 @@ function App(props) {
     return bindActionCreators(
       {
         onBack: actions.hideCitySelector,
-        fetchCityData: actions.fetchCityData
+        fetchCityData: actions.fetchCityData,
+        onSelect: actions.setSelectedCity
       },
       dispatch
     );

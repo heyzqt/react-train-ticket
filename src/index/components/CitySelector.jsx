@@ -4,8 +4,76 @@ import "./CitySelector.scss";
 import { connect } from "react-redux";
 import classnames from "classnames";
 
+//根据城市选择浮层视图分析结构可知，主要包含以下内容
+//- 城市搜索框
+//- 字母索引
+//- 城市列表
+//1. 城市内容条目
+//2. 包含某个首字母的城市名字的集合
+//3. 整个城市布局视图
+function CityItem(props) {
+  const { name, onSelect } = props;
+  return (
+    <li className="city-li" onClick={() => onSelect(name)}>
+      {name}
+    </li>
+  );
+}
+
+CityItem.propTypes = {
+  name: PropTypes.string.isRequired,
+  onSelect: PropTypes.func.isRequired
+};
+
+function CitySection(props) {
+  const { title, cities = [], onSelect } = props;
+  return (
+    <ul className="city-ul">
+      <li className="city-li">{title}</li>
+      {cities.map((item) => {
+        return (
+          <CityItem
+            key={item.name}
+            name={item.name}
+            onSelect={() => onSelect(item.name)}
+          ></CityItem>
+        );
+      })}
+    </ul>
+  );
+}
+
+CitySection.propTypes = {
+  title: PropTypes.string.isRequired,
+  cities: PropTypes.array,
+  onSelect: PropTypes.func.isRequired
+};
+
+function CityList(props) {
+  const { sections, onSelect } = props;
+  return (
+    <div>
+      {sections.map((item) => {
+        return (
+          <CitySection
+            key={item.title}
+            title={item.title}
+            cities={item.citys}
+            onSelect={onSelect}
+          ></CitySection>
+        );
+      })}
+    </div>
+  );
+}
+
+CityList.propTypes = {
+  sections: PropTypes.array.isRequired,
+  onSelect: PropTypes.func.isRequired
+};
+
 function CitySelector(props) {
-  const { show, cityData, isLoading, onBack, fetchCityData } = props;
+  const { show, cityData, isLoading, onBack, fetchCityData, onSelect } = props;
   const [searchKey, setSearchKey] = useState("");
 
   const key = useMemo(() => {
@@ -19,6 +87,22 @@ function CitySelector(props) {
     }
     fetchCityData();
   }, [show, cityData, isLoading]);
+
+  const outputCitySections = (props) => {
+    if (isLoading) {
+      return <div>Loading......</div>;
+    }
+
+    if (cityData) {
+      return (
+        <div>
+          <CityList sections={cityData.cityList} onSelect={onSelect}></CityList>
+        </div>
+      );
+    }
+
+    return <div>error</div>;
+  };
 
   return (
     <div className={classnames("city-selector", { hidden: !show })}>
@@ -49,6 +133,7 @@ function CitySelector(props) {
           </i>
         </div>
       </div>
+      {outputCitySections()}
     </div>
   );
 }
