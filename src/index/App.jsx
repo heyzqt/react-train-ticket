@@ -7,6 +7,7 @@ import { bindActionCreators } from "redux";
 import Header from "../common/Header";
 import Jounary from "./components/Jounary";
 import CitySelector from "./components/CitySelector";
+import DepartDate from "./components/DepartDate";
 
 function App(props) {
   const {
@@ -18,6 +19,8 @@ function App(props) {
     showCitySelector,
     hideCitySelector,
     setSelectedCity,
+    departDate,
+    showDateSelector,
     dispatch
   } = props;
 
@@ -46,11 +49,25 @@ function App(props) {
     );
   }, []);
 
+  const dateCbs = useMemo(() => {
+    return bindActionCreators(
+      {
+        onClick: actions.showDateSelector
+      },
+      dispatch
+    );
+  }, []);
+
   return (
     <div>
       <Header title="火车票" onBack={onBack}></Header>
       <form className="form">
         <Jounary from={from} to={to} {...cbs}></Jounary>
+        <DepartDate
+          time={departDate}
+          onClick={showDateSelector}
+          {...dateCbs}
+        ></DepartDate>
       </form>
       <CitySelector
         show={isCitySelectorVisible}

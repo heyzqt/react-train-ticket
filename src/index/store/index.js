@@ -14,7 +14,8 @@ const store = createStore(
     to: "成都",
     isCitySelectorVisible: false,
     isLoadingCityData: false,
-    cityData: null
+    cityData: null,
+    departDate: Date.now()
   },
   composeEnhancers(applyMiddleware(thunk))
 );

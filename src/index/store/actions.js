@@ -80,3 +80,9 @@ const setToCity = (to) => ({
   type: actionTypes.SET_TO_CITY,
   to
 });
+
+export const showDateSelector = (time) => {
+  return (dispatch) => {
+    console.log("showDateSelector time = ", time);
+  };
+};
