@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, memo, useCallback } from "react";
 import PropTypes from "prop-types";
 import "./CitySelector.scss";
 import { connect } from "react-redux";
@@ -11,6 +11,12 @@ import classnames from "classnames";
 //1. 城市内容条目
 //2. 包含某个首字母的城市名字的集合
 //3. 整个城市布局视图
+
+//字母列表索引实现思路
+//1. 字母表的显示，拿到26个字母表，然后显示出来
+//2. 给每个字母的模块添加数据属性，作为滚动时候的标记
+//3. 点击字母，查找对应字母模块，并滚动到对应位置
+
 function CityItem(props) {
   const { name, onSelect } = props;
   return (
@@ -29,7 +35,9 @@ function CitySection(props) {
   const { title, cities = [], onSelect } = props;
   return (
     <ul className="city-ul">
-      <li className="city-li">{title}</li>
+      <li className="city-li" data-cate={title}>
+        {title}
+      </li>
       {cities.map((item) => {
         return (
           <CityItem
@@ -49,27 +57,56 @@ CitySection.propTypes = {
   onSelect: PropTypes.func.isRequired
 };
 
-function CityList(props) {
-  const { sections, onSelect } = props;
+//生成字母表数据
+const alphabet = Array.from(new Array(26), (ele, index) => {
+  return String.fromCharCode(65 + index);
+});
+
+//字母Item组件
+const AlphaIndex = memo((props) => {
+  const { alpha, onClick } = props;
   return (
-    <div>
-      {sections.map((item) => {
-        return (
-          <CitySection
-            key={item.title}
-            title={item.title}
-            cities={item.citys}
-            onSelect={onSelect}
-          ></CitySection>
-        );
-      })}
+    <i className="city-index-item" onClick={() => onClick(alpha)}>
+      {alpha}
+    </i>
+  );
+});
+
+AlphaIndex.propTypes = {
+  alpha: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired
+};
+
+function CityList(props) {
+  const { sections, onSelect, toAlpha } = props;
+  console.log("CityList update");
+  return (
+    <div className="city-list">
+      <div className="city-cate">
+        {sections.map((item) => {
+          return (
+            <CitySection
+              key={item.title}
+              title={item.title}
+              cities={item.citys}
+              onSelect={onSelect}
+            ></CitySection>
+          );
+        })}
+      </div>
+      <div className="city-index">
+        {alphabet.map((alpha) => {
+          return <AlphaIndex key={alpha} alpha={alpha} onClick={toAlpha} />;
+        })}
+      </div>
     </div>
   );
 }
 
 CityList.propTypes = {
   sections: PropTypes.array.isRequired,
-  onSelect: PropTypes.func.isRequired
+  onSelect: PropTypes.func.isRequired,
+  toAlpha: PropTypes.func.isRequired
 };
 
 function CitySelector(props) {
@@ -93,10 +130,18 @@ function CitySelector(props) {
       return <div>Loading......</div>;
     }
 
+    const toAlpha = useCallback((alpha) => {
+      document.querySelector(`[data-cate='${alpha}']`).scrollIntoView();
+    }, []);
+
     if (cityData) {
       return (
         <div>
-          <CityList sections={cityData.cityList} onSelect={onSelect}></CityList>
+          <CityList
+            sections={cityData.cityList}
+            onSelect={onSelect}
+            toAlpha={toAlpha}
+          ></CityList>
         </div>
       );
     }
