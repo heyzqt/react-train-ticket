@@ -39,6 +39,21 @@ export default (state = {}, action) => {
         ...state,
         to: action.to
       };
+    case actionTypes.SHOW_DATE_SELECTOR:
+      return {
+        ...state,
+        isDateSelectorVisible: true
+      };
+    case actionTypes.HIDE_DATE_SELECTOR:
+      return {
+        ...state,
+        isDateSelectorVisible: false
+      };
+    case actionTypes.SET_DEPART_DATE:
+      return {
+        ...state,
+        departDate: action.departDate
+      };
     default:
       return state;
   }

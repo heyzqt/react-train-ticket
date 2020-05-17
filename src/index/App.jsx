@@ -3,11 +3,13 @@ import { connect } from "react-redux";
 import "./App.scss";
 import * as actions from "./store/actions";
 import { bindActionCreators } from "redux";
+import { h0 } from "../common/fp";
 
 import Header from "../common/Header";
 import Jounary from "./components/Jounary";
 import CitySelector from "./components/CitySelector";
 import DepartDate from "./components/DepartDate";
+import DateSelector from "../common/DateSelector";
 
 function App(props) {
   const {
@@ -16,11 +18,8 @@ function App(props) {
     isCitySelectorVisible,
     cityData,
     isLoadingCityData,
-    showCitySelector,
-    hideCitySelector,
-    setSelectedCity,
     departDate,
-    showDateSelector,
+    isDateSelectorVisible,
     dispatch
   } = props;
 
@@ -58,16 +57,29 @@ function App(props) {
     );
   }, []);
 
+  const dateSelectorCbs = useMemo(() => {
+    return bindActionCreators(
+      {
+        onBack: actions.hideDateSelector
+      },
+      dispatch
+    );
+  }, []);
+
+  const onSelectDate = useCallback((day) => {
+    if (!day || day < h0()) {
+      return;
+    }
+    dispatch(actions.setDepartDate(day));
+    dispatch(actions.hideDateSelector());
+  }, []);
+
   return (
     <div>
       <Header title="火车票" onBack={onBack}></Header>
       <form className="form">
         <Jounary from={from} to={to} {...cbs}></Jounary>
-        <DepartDate
-          time={departDate}
-          onClick={showDateSelector}
-          {...dateCbs}
-        ></DepartDate>
+        <DepartDate time={departDate} {...dateCbs}></DepartDate>
       </form>
       <CitySelector
         show={isCitySelectorVisible}
@@ -75,6 +87,11 @@ function App(props) {
         isLoading={isLoadingCityData}
         {...cityCbs}
       ></CitySelector>
+      <DateSelector
+        show={isDateSelectorVisible}
+        onSelect={onSelectDate}
+        {...dateSelectorCbs}
+      ></DateSelector>
     </div>
   );
 }

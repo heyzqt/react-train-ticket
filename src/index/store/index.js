@@ -15,7 +15,8 @@ const store = createStore(
     isCitySelectorVisible: false,
     isLoadingCityData: false,
     cityData: null,
-    departDate: Date.now()
+    departDate: Date.now(),
+    isDateSelectorVisible: false
   },
   composeEnhancers(applyMiddleware(thunk))
 );

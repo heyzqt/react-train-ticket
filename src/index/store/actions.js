@@ -81,8 +81,15 @@ const setToCity = (to) => ({
   to
 });
 
-export const showDateSelector = (time) => {
-  return (dispatch) => {
-    console.log("showDateSelector time = ", time);
-  };
-};
+export const showDateSelector = () => ({
+  type: actionTypes.SHOW_DATE_SELECTOR
+});
+
+export const hideDateSelector = () => ({
+  type: actionTypes.HIDE_DATE_SELECTOR
+});
+
+export const setDepartDate = (day) => ({
+  type: actionTypes.SET_DEPART_DATE,
+  departDate: day
+});

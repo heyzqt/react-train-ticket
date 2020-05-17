@@ -5,3 +5,6 @@ export const CITY_DATA_LOADING = "index/CITY_DATA_LOADING";
 export const GET_CITY_DATA = "index/GET_CITY_DATA";
 export const SET_FROM_CITY = "index/SET_FROM_CITY";
 export const SET_TO_CITY = "index/SET_TO_CITY";
+export const SHOW_DATE_SELECTOR = "index/SHOW_DATE_SELECTOR";
+export const HIDE_DATE_SELECTOR = "index/HIDE_DATE_SELECTOR";
+export const SET_DEPART_DATE = "index/SET_DEPART_DATE";
