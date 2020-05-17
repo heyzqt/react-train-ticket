@@ -3,7 +3,8 @@ import PropTypes from "prop-types";
 import "./CitySelector.scss";
 import { connect } from "react-redux";
 import classnames from "classnames";
-
+import axios from "axios";
+import { api } from "../api";
 //根据城市选择浮层视图分析结构可知，主要包含以下内容
 //- 城市搜索框
 //- 字母索引
@@ -16,6 +17,17 @@ import classnames from "classnames";
 //1. 字母表的显示，拿到26个字母表，然后显示出来
 //2. 给每个字母的模块添加数据属性，作为滚动时候的标记
 //3. 点击字母，查找对应字母模块，并滚动到对应位置
+
+//搜索建议-实现思路
+//服务端
+//1. 服务器根据搜索关键词返回搜索结果
+//客户端
+//1. 编写SuggestItem显示搜索结果的Item控件
+//2. 编写Suggest控件作为搜索结果的包裹控件
+//3. 在Suggest控件中编写搜索逻辑
+//- 用户搜索关键词，返回搜索结果，并显示在界面，实现方式useEffect
+//- 注意1：搜索结果中需要对搜索关键词做判断，只针对当前搜索的关键词的内容做显示
+//4. 点击搜索结果后，关闭城市选择浮层，返回结果给火车票页
 
 function CityItem(props) {
   const { name, onSelect } = props;
@@ -109,6 +121,64 @@ CityList.propTypes = {
   toAlpha: PropTypes.func.isRequired
 };
 
+const SuggestItem = memo((props) => {
+  const { name, onClick } = props;
+  return (
+    <li className="city-suggest-li" onClick={() => onClick(name)}>
+      {name}
+    </li>
+  );
+});
+
+SuggestItem.propTypes = {
+  name: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired
+};
+
+const Suggest = memo((props) => {
+  const { searchKey, onSelect } = props;
+  const [result, setResult] = useState([]);
+
+  useEffect(() => {
+    console.log("Suggest useEffect");
+    axios
+      .get(api.searchCity + "?key=" + encodeURIComponent(searchKey))
+      .then((res) => {
+        if (searchKey === res.data.searchKey) {
+          setResult(res.data.result);
+        }
+      });
+  }, [searchKey]);
+
+  const fallBackResult = useMemo(() => {
+    if (!result.length) {
+      return [{ display: searchKey }];
+    }
+    return result;
+  }, [result, searchKey]);
+
+  return (
+    <div className="city-suggest">
+      <ul className="city-suggest-ul">
+        {fallBackResult.map((item) => {
+          return (
+            <SuggestItem
+              key={item.display}
+              name={item.display}
+              onClick={onSelect}
+            ></SuggestItem>
+          );
+        })}
+      </ul>
+    </div>
+  );
+});
+
+Suggest.propTypes = {
+  searchKey: PropTypes.string.isRequired,
+  onSelect: PropTypes.func.isRequired
+};
+
 function CitySelector(props) {
   const { show, cityData, isLoading, onBack, fetchCityData, onSelect } = props;
   const [searchKey, setSearchKey] = useState("");
@@ -130,9 +200,9 @@ function CitySelector(props) {
       return <div>Loading......</div>;
     }
 
-    const toAlpha = useCallback((alpha) => {
+    const toAlpha = (alpha) => {
       document.querySelector(`[data-cate='${alpha}']`).scrollIntoView();
-    }, []);
+    };
 
     if (cityData) {
       return (
@@ -178,6 +248,10 @@ function CitySelector(props) {
           </i>
         </div>
       </div>
+      {/* 一定要searchKey合法才显示Suggest组件，否则Suggest中的useEffect Hook函数会调用，会报错 */}
+      {Boolean(searchKey) && (
+        <Suggest searchKey={searchKey} onSelect={onSelect} />
+      )}
       {outputCitySections()}
     </div>
   );
