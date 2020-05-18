@@ -66,3 +66,37 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+## 搜索结果页-数据结构与模块设计
+
+### 视图层
+
+- 顶部，时间选择
+- 中间，车次列表
+- 底部，筛选栏
+
+### 数据层
+
+- 页面数据：
+  - from: null
+  - to: null
+  - departDate: h0(Date.now()) //会从 url 中解析出来
+  - trainList: [] //车次列表
+
+- 筛选项数据：
+  - orderType: ORDER_PART //出发早到晚或耗时短到长
+  - onlyTickets: false //只看有票
+  - ticketTypes: [] //坐席类型
+  - checkedTicketTypes: {} //选中的坐席类型
+  - trainTypes: [] //车次类型
+  - checkedTrainTypes: {} //选中的车次类型
+  - departStations: [] //出发车站
+  - checkedDepartStations: {}
+  - arriveStations: [] //到达车站
+  - checkedArriveStations: {}
+  - departTimeStart: 0 //出发时间开始
+  - departTimeEnd: 24 //出发时间结束
+  - arriveTimeStart: 0
+  - arriveTimeEnd: 24
+  - isFiltersVisible: false //筛选框是否显示
+  - searchParsed: false //标识是否解析了 URL 参数
