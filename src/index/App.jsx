@@ -95,17 +95,22 @@ function App(props) {
         <HighSpeed highSpeed={highSpeed} {...highSpeedCbs}></HighSpeed>
         <Submit />
       </form>
-      <CitySelector
-        show={isCitySelectorVisible}
-        cityData={cityData}
-        isLoading={isLoadingCityData}
-        {...cityCbs}
-      ></CitySelector>
-      <DateSelector
-        show={isDateSelectorVisible}
-        onSelect={onSelectDate}
-        {...dateSelectorCbs}
-      ></DateSelector>
+      {/* 优化性能，添加Boolean判断，避免每次App重新渲染时，CitySelector和DateSelector也重新渲染 */}
+      {Boolean(isCitySelectorVisible) && (
+        <CitySelector
+          show={isCitySelectorVisible}
+          cityData={cityData}
+          isLoading={isLoadingCityData}
+          {...cityCbs}
+        ></CitySelector>
+      )}
+      {Boolean(isDateSelectorVisible) && (
+        <DateSelector
+          show={isDateSelectorVisible}
+          onSelect={onSelectDate}
+          {...dateSelectorCbs}
+        ></DateSelector>
+      )}
     </div>
   );
 }

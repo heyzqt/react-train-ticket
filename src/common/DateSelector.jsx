@@ -101,7 +101,6 @@ function Month(props) {
     null
   );
   days = days.concat(endEmptyDay);
-  //todo 考虑优化，没必要每次在首页时就初始化该组价
   console.log("Month update");
 
   const weeks = [];
