@@ -10,6 +10,8 @@ import Jounary from "./components/Jounary";
 import CitySelector from "./components/CitySelector";
 import DepartDate from "./components/DepartDate";
 import DateSelector from "../common/DateSelector";
+import HighSpeed from "./components/HighSpeed";
+import Submit from "./components/Submit";
 
 function App(props) {
   const {
@@ -20,6 +22,7 @@ function App(props) {
     isLoadingCityData,
     departDate,
     isDateSelectorVisible,
+    highSpeed,
     dispatch
   } = props;
 
@@ -74,12 +77,23 @@ function App(props) {
     dispatch(actions.hideDateSelector());
   }, []);
 
+  const highSpeedCbs = useMemo(() => {
+    return bindActionCreators(
+      {
+        toggle: actions.toggleHighSpeed
+      },
+      dispatch
+    );
+  }, []);
+
   return (
     <div>
       <Header title="火车票" onBack={onBack}></Header>
-      <form className="form">
+      <form className="form" action="./query.html">
         <Jounary from={from} to={to} {...cbs}></Jounary>
         <DepartDate time={departDate} {...dateCbs}></DepartDate>
+        <HighSpeed highSpeed={highSpeed} {...highSpeedCbs}></HighSpeed>
+        <Submit />
       </form>
       <CitySelector
         show={isCitySelectorVisible}

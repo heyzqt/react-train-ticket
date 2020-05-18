@@ -93,3 +93,7 @@ export const setDepartDate = (day) => ({
   type: actionTypes.SET_DEPART_DATE,
   departDate: day
 });
+
+export const toggleHighSpeed = () => ({
+  type: actionTypes.TOGGLE_HIGH_SPEED
+});

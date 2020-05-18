@@ -8,3 +8,4 @@ export const SET_TO_CITY = "index/SET_TO_CITY";
 export const SHOW_DATE_SELECTOR = "index/SHOW_DATE_SELECTOR";
 export const HIDE_DATE_SELECTOR = "index/HIDE_DATE_SELECTOR";
 export const SET_DEPART_DATE = "index/SET_DEPART_DATE";
+export const TOGGLE_HIGH_SPEED = "index/TOGGLE_HIGH_SPEED";

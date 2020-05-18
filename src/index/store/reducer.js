@@ -54,6 +54,11 @@ export default (state = {}, action) => {
         ...state,
         departDate: action.departDate
       };
+    case actionTypes.TOGGLE_HIGH_SPEED:
+      return {
+        ...state,
+        highSpeed: !state.highSpeed
+      };
     default:
       return state;
   }
