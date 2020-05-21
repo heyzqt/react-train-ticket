@@ -5,6 +5,7 @@ import URI from "urijs";
 import { h0 } from "../common/fp";
 import axios from "axios";
 import { API } from "./api";
+import useNav from "../common/useNav";
 
 import Header from "../common/Header";
 import Nav from "../common/Nav";
@@ -21,7 +22,9 @@ import {
   setTicketTypes,
   setTrainTypes,
   setDepartStations,
-  setArriveStations
+  setArriveStations,
+  prevDate,
+  nextDate
 } from "./actions";
 import dayjs from "dayjs";
 
@@ -123,6 +126,13 @@ function App(props) {
     arriveTimeEnd
   ]);
 
+  const { isPrevDisabled, isNextDisabled, prev, next } = useNav(
+    departDate,
+    prevDate,
+    nextDate,
+    dispatch
+  );
+
   if (!searchParsed) {
     return <div>loading</div>;
   }
@@ -130,7 +140,13 @@ function App(props) {
   return (
     <div>
       <Header title={`${from} -> ${to}`} onBack={onBack}></Header>
-      <Nav></Nav>
+      <Nav
+        date={departDate}
+        prev={prev}
+        next={next}
+        isPrevDisabled={isPrevDisabled}
+        isNextDisabled={isNextDisabled}
+      ></Nav>
       <List></List>
       <Bottom></Bottom>
     </div>

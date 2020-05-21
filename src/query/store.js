@@ -35,7 +35,7 @@ const store = createStore(
     isFilterVisible: false, //是否显示筛选框
     searchParsed: false //是否解析完url
   },
-  composeEnhancers()
+  composeEnhancers(applyMiddleware(thunk))
 );
 
 export default store;
