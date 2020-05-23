@@ -50,7 +50,8 @@ function App(props) {
     departTimeEnd,
     arriveTimeStart,
     arriveTimeEnd,
-    dispatch
+    dispatch,
+    trainList
   } = props;
 
   const onBack = useCallback(() => {
@@ -147,7 +148,7 @@ function App(props) {
         isPrevDisabled={isPrevDisabled}
         isNextDisabled={isNextDisabled}
       ></Nav>
-      <List></List>
+      <List list={trainList}></List>
       <Bottom></Bottom>
     </div>
   );
