@@ -57,7 +57,12 @@ function App(props) {
     arriveTimeEnd,
     dispatch,
     trainList,
-    isFilterVisible
+    isFilterVisible,
+
+    ticketTypes,
+    trainTypes,
+    departStations,
+    arriveStations
   } = props;
 
   const onBack = useCallback(() => {
@@ -172,6 +177,18 @@ function App(props) {
         highSpeed={highSpeed}
         onlyTickets={onlyTickets}
         isFilterVisible={isFilterVisible}
+        ticketTypes={ticketTypes}
+        trainTypes={trainTypes}
+        departStations={departStations}
+        arriveStations={arriveStations}
+        checkedTicketTypes={checkedTicketTypes}
+        checkedTrainTypes={checkedTrainTypes}
+        checkedDepartStations={checkedDepartStations}
+        checkedArriveStations={checkedArriveStations}
+        departTimeStart={departTimeStart}
+        departTimeEnd={departTimeEnd}
+        arriveTimeStart={arriveTimeStart}
+        arriveTimeEnd={arriveTimeEnd}
         {...bottomCbs}
       ></Bottom>
     </div>
