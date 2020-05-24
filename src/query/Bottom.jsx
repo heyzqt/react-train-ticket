@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { memo, useState, useCallback } from "react";
 import "./Bottom.scss";
 import PropTypes from "prop-types";
 import { ORDER_PART } from "./constant";
@@ -27,29 +27,34 @@ import {
 //逻辑：
 //1.更新以上array数据类型的选中的update方法
 
-function Filter(props) {
-  const { name, checked, value, toggle } = props;
+const Filter = memo(function Filter(props) {
+  const { value, name, checked, toggle } = props;
 
   return (
     <li className={classnames({ checked })} onClick={() => toggle(value)}>
       {name}
     </li>
   );
-}
+});
 
-function Option(props) {
+Filter.propTypes = {
+  value: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  checked: PropTypes.bool.isRequired,
+  toggle: PropTypes.func.isRequired
+};
+
+const Option = memo(function Option(props) {
   const { title, options, checkedMap, update } = props;
 
   const toggle = useCallback(
     (value) => {
       const newCheckedMap = { ...checkedMap };
-
       if (value in newCheckedMap) {
         delete newCheckedMap[value];
       } else {
         newCheckedMap[value] = true;
       }
-
       update(newCheckedMap);
     },
     [checkedMap, update]
@@ -66,15 +71,22 @@ function Option(props) {
               {...option}
               checked={option.value in checkedMap}
               toggle={toggle}
-            ></Filter>
+            />
           );
         })}
       </ul>
     </div>
   );
-}
+});
 
-function BottomModal(props) {
+Option.propTypes = {
+  title: PropTypes.string.isRequired,
+  options: PropTypes.array.isRequired,
+  checkedMap: PropTypes.object.isRequired,
+  update: PropTypes.func.isRequired
+};
+
+const BottomModal = memo(function BottomModal(props) {
   const {
     ticketTypes,
     trainTypes,
@@ -83,48 +95,20 @@ function BottomModal(props) {
     checkedTicketTypes,
     checkedTrainTypes,
     checkedDepartStations,
-    checkedArriveStations,
-    departTimeStart,
-    departTimeEnd,
-    arriveTimeStart,
-    arriveTimeEnd,
-
-    setCheckedTicketTypes,
-    setCheckedTrainTypes,
-    setCheckedDepartStations,
-    setCheckedArriveStations,
-    setDepartTimeStart,
-    setDepartTimeEnd,
-    setArriveTimeStart,
-    setArriveTimeEnd
+    checkedArriveStations
   } = props;
 
-  const [localCheckedTicketTypes, setLocalCheckedTicketTypes] = useState(() => {
-    return {
-      ...checkedTicketTypes
-    };
-  });
-
-  const [localCheckedTrainTypes, setLocalCheckedTrainTypes] = useState(() => {
-    return {
-      ...checkedTrainTypes
-    };
-  });
-
-  const [localCheckedDepartStations, setLocalCheckedDepartStations] = useState(
-    () => {
-      return {
-        ...departStations
-      };
-    }
+  const [localCheckedTicketTypes, setLocalCheckedTicketTypes] = useState(
+    checkedTicketTypes
   );
-
+  const [localCheckedTrainTypes, setLocalCheckedTrainTypes] = useState(
+    checkedTrainTypes
+  );
+  const [localCheckedDepartStations, setLocalCheckedDepartStations] = useState(
+    checkedDepartStations
+  );
   const [localCheckedArriveStations, setLocalCheckedArriveStations] = useState(
-    () => {
-      return {
-        ...arriveStations
-      };
-    }
+    checkedArriveStations
   );
 
   const optionGroup = [
@@ -163,21 +147,26 @@ function BottomModal(props) {
             <span className="ok">确定</span>
           </div>
           <div className="options">
-            {optionGroup.map((group) => {
-              return (
-                <Option
-                  key={group.title}
-                  {...group}
-                  update={group.update}
-                ></Option>
-              );
-            })}
+            {optionGroup.map((group) => (
+              <Option {...group} key={group.title} />
+            ))}
           </div>
         </div>
       </div>
     </div>
   );
-}
+});
+
+BottomModal.propTypes = {
+  ticketTypes: PropTypes.array.isRequired,
+  trainTypes: PropTypes.array.isRequired,
+  departStations: PropTypes.array.isRequired,
+  arriveStations: PropTypes.array.isRequired,
+  checkedTicketTypes: PropTypes.object.isRequired,
+  checkedTrainTypes: PropTypes.object.isRequired,
+  checkedDepartStations: PropTypes.object.isRequired,
+  checkedArriveStations: PropTypes.object.isRequired
+};
 
 function Bottom(props) {
   const {
@@ -255,14 +244,6 @@ function Bottom(props) {
           departTimeEnd={departTimeEnd}
           arriveTimeStart={arriveTimeStart}
           arriveTimeEnd={arriveTimeEnd}
-          setCheckedTicketTypes={setCheckedTicketTypes}
-          setCheckedTrainTypes={setCheckedTrainTypes}
-          setCheckedDepartStations={setCheckedDepartStations}
-          setCheckedArriveStations={setCheckedArriveStations}
-          setDepartTimeStart={setDepartTimeStart}
-          setDepartTimeEnd={setDepartTimeEnd}
-          setArriveTimeStart={setArriveTimeStart}
-          setArriveTimeEnd={setArriveTimeEnd}
         />
       )}
     </div>
