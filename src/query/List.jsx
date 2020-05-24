@@ -82,8 +82,8 @@ ListItem.propTypes = {
   dStation: PropTypes.string.isRequired,
   aStation: PropTypes.string.isRequired,
   trainNumber: PropTypes.string.isRequired,
-  date: PropTypes.number.isRequired,
-  time: PropTypes.number.isRequired,
+  date: PropTypes.string.isRequired,
+  time: PropTypes.string.isRequired,
   priceMsg: PropTypes.string.isRequired,
   dayAfter: PropTypes.string.isRequired
 };
