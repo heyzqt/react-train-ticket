@@ -10,6 +10,8 @@ import {
   setArriveStations
 } from "./actions";
 
+import Slider from "./slider";
+
 //底部筛选栏实现思路
 //UI:底部栏固定、出发早晚、只看高铁动车、只看有票、综合筛选
 //数据：
@@ -151,6 +153,7 @@ const BottomModal = memo(function BottomModal(props) {
               <Option {...group} key={group.title} />
             ))}
           </div>
+          <Slider></Slider>
         </div>
       </div>
     </div>
