@@ -1,11 +1,33 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { connect } from "react-redux";
 import "./App.css";
+import URI from "urijs";
+import axios from "axios";
+import { ticketUrl } from "../ticket/api/api";
+import dayjs from "dayjs";
+import { h0 } from "../common/fp";
+import useNav from "../common/useNav";
 
 import Header from "../common/Header";
 import Detail from "../common/Detail";
 import Candidate from "./Candidate";
 import Nav from "../common/Nav";
+
+import {
+  setDepartDate,
+  setArriveDate,
+  setDepartTimeStr,
+  setArriveTimeStr,
+  setDepartStation,
+  setArriveStation,
+  setTrainNum,
+  setTickets,
+  setDurationStr,
+  setSearchParsed,
+  toggleIsScheduleVisible,
+  prevDate,
+  nextDate
+} from "./actions";
 
 //车票详情页实现思路
 //UI：Header、时间栏、车票详情、座位等级
@@ -26,6 +48,11 @@ import Nav from "../common/Nav";
 //点击预定显示预定列表
 //点击买票跳转到订单填写页
 
+//开发一
+//+ 解析URL参数
+//+ 网络请求获取数据
+//+ 完成Header和Nav
+
 function App(props) {
   const {
     departDate,
@@ -36,18 +63,87 @@ function App(props) {
     arriveStation,
     trainNum,
     tickets,
+    durationStr,
     searchParsed,
-    isScheduleVisible
+    isScheduleVisible,
+
+    dispatch
   } = props;
+
+  //解析url参数
+  useEffect(() => {
+    const queries = URI.parseQuery(window.location.search);
+    const { aStation, dStation, date, trainNumber } = queries;
+
+    dispatch(setDepartStation(dStation));
+    dispatch(setArriveStation(aStation));
+    dispatch(setTrainNum(trainNumber));
+    dispatch(setDepartDate(h0(date)));
+
+    dispatch(setSearchParsed(true));
+  }, []);
+
+  //设置网页标题
+  useEffect(() => {
+    document.title = trainNum;
+  }, [trainNum]);
+
+  //网络请求数据
+  useEffect(() => {
+    if (!searchParsed) {
+      return;
+    }
+
+    axios
+      .get(
+        ticketUrl +
+          "?date=" +
+          dayjs(departDate).format("YYYY-MM-DD") +
+          "&trainNumer=" +
+          trainNum
+      )
+      .then((resp) => {
+        const { detail, candidates } = resp.data;
+
+        const {
+          departTimeStr,
+          arriveTimeStr,
+          arriveDate,
+          durationStr
+        } = detail;
+        dispatch(setDepartTimeStr(departTimeStr));
+        dispatch(setArriveTimeStr(arriveTimeStr));
+        dispatch(setArriveDate(arriveDate));
+        dispatch(setDurationStr(durationStr));
+        dispatch(setTickets(candidates));
+      });
+  }, [searchParsed]);
+
+  const { prev, next, isPrevDisabled, isNextDisabled } = useNav(
+    departDate,
+    prevDate,
+    nextDate,
+    dispatch
+  );
 
   const onBack = useCallback(() => {
     window.history.back();
   }, []);
 
+  if (!searchParsed) {
+    return <div>loading</div>;
+  }
+
   return (
     <div>
-      <Header title="列车号码" onBack={onBack}></Header>
-      {/* <Nav></Nav> */}
+      <Header title={trainNum} onBack={onBack}></Header>
+      <Nav
+        date={departDate}
+        prev={prev}
+        next={next}
+        isPrevDisabled={isPrevDisabled}
+        isNextDisabled={isNextDisabled}
+      ></Nav>
       <Detail></Detail>
       <Candidate></Candidate>
     </div>
