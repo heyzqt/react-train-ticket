@@ -14,6 +14,7 @@ const store = createStore(
     arriveDate: Date.now(),
     departTimeStr: Date.now(),
     arriveTimeStr: Date.now(),
+    durationStr:"",
     departStation: null,
     arriveStation: null,
     trainNum: null,

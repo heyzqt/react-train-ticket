@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect } from "react";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import "./App.css";
 import URI from "urijs";
 import axios from "axios";
@@ -28,6 +29,7 @@ import {
   prevDate,
   nextDate
 } from "./actions";
+import { useMemo } from "react";
 
 //车票详情页实现思路
 //UI：Header、时间栏、车票详情、座位等级
@@ -130,6 +132,15 @@ function App(props) {
     window.history.back();
   }, []);
 
+  const detailCbs = useMemo(() => {
+    return bindActionCreators(
+      {
+        toggleIsScheduleVisible
+      },
+      dispatch
+    );
+  }, []);
+
   if (!searchParsed) {
     return <div>loading</div>;
   }
@@ -144,7 +155,17 @@ function App(props) {
         isPrevDisabled={isPrevDisabled}
         isNextDisabled={isNextDisabled}
       ></Nav>
-      <Detail></Detail>
+      <Detail
+        departDate={departDate}
+        arriveDate={arriveDate}
+        departTimeStr={departTimeStr}
+        arriveTimeStr={arriveTimeStr}
+        departStation={departStation}
+        arriveStation={arriveStation}
+        trainNumber={trainNum}
+        durationStr={durationStr}
+        {...detailCbs}
+      ></Detail>
       <Candidate></Candidate>
     </div>
   );
