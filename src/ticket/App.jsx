@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, lazy, Suspense } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import "./App.css";
@@ -141,6 +141,8 @@ function App(props) {
     );
   }, []);
 
+  const Schedule = lazy(() => import("./Schedule"));
+
   if (!searchParsed) {
     return <div>loading</div>;
   }
@@ -167,6 +169,17 @@ function App(props) {
         {...detailCbs}
       ></Detail>
       <Candidate></Candidate>
+      {isScheduleVisible && (
+        <Suspense fallback={<div>Schedule Loading</div>}>
+          <Schedule
+            date={departDate}
+            trainNumber={trainNum}
+            departStation={departStation}
+            arriveStation={arriveStation}
+            {...detailCbs}
+          ></Schedule>
+        </Suspense>
+      )}
     </div>
   );
 }
