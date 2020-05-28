@@ -31,11 +31,11 @@ function Detail(props) {
   } = props;
 
   const departDateStr = useMemo(() => {
-    return dayjs(departDate).locale('zh').format("MM-DD dddd");
+    return dayjs(departDate).locale("zh").format("MM-DD dddd");
   }, [departDate]);
 
   const arriveDateStr = useMemo(() => {
-    return dayjs(arriveDate).locale("zh").format('MM-DD dddd')
+    return dayjs(arriveDate).locale("zh").format("MM-DD dddd");
   }, [arriveDate]);
 
   return (
@@ -69,6 +69,18 @@ const mapDispatchToProps = (dispatch) => {
   return { dispatch };
 };
 
-Detail.propTypes = {};
+Detail.propTypes = {
+  departDate: PropTypes.number.isRequired,
+  arriveDate: PropTypes.number.isRequired,
+  departTimeStr: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    .isRequired,
+  arriveTimeStr: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    .isRequired,
+  departStation: PropTypes.string.isRequired,
+  arriveStation: PropTypes.string.isRequired,
+  trainNumber: PropTypes.string.isRequired,
+  durationStr: PropTypes.string.isRequired,
+  toggleIsScheduleVisible: PropTypes.func.isRequired
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Detail);

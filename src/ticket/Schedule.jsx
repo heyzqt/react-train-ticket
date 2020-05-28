@@ -161,9 +161,9 @@ function Schedule(props) {
   }, []);
 
   return (
-    <div className="qn_dialog" onClick={toggleIsScheduleVisible}>
-      <div className="schedule mask">
-        <div className="dialog">
+    <div className="qn_dialog">
+      <div className="schedule mask" onClick={toggleIsScheduleVisible}>
+        <div className="dialog" onClick={(e) => e.stopPropagation()}>
           <h1>列车时刻表</h1>
           <div className="head">
             <span className="station">车站</span>
