@@ -44,9 +44,6 @@ function Slider(props) {
   };
 
   const onStartTouchMove = (e) => {
-    // console.log(e);
-    console.log(range.current);
-    // console.log(range.current.width);
     let startHandleEnd = e.targetTouches[0].clientX;
     let allWidth = parseInt(window.getComputedStyle(range.current).width.replace("px", ""));
     let position = (startHandleEnd - startHandleX) / allWidth ;
@@ -54,8 +51,6 @@ function Slider(props) {
     if (position < 0) {
       setStart(0);
     }
-    
-    // setStart();
   };
 
   useEffect(() => {
