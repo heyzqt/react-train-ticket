@@ -176,8 +176,9 @@ function App(props) {
           arriveStation,
           departDate
         }}
-      ></TrainContext.Provider>
-      <Candidate tickets={tickets}></Candidate>
+      >
+        <Candidate tickets={tickets}></Candidate>
+      </TrainContext.Provider>
       {isScheduleVisible && (
         <Suspense fallback={<div>Schedule Loading</div>}>
           <Schedule
