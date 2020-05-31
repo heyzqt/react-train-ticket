@@ -29,6 +29,9 @@ const postcssNormalize = require("postcss-normalize");
 
 const appPackageJson = require(paths.appPackageJson);
 
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin;
+
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== "false";
 // Some apps do not need the benefits of saving a web request, so not inlining the chunk
@@ -511,6 +514,11 @@ module.exports = function (webpackEnv) {
       ]
     },
     plugins: [
+      process.env.GENERATE_BUNDLE_ANALYZER === "true" &&
+        new BundleAnalyzerPlugin({
+          openAnalyzer: false, //是否自动打开8888端口的分析网页
+          analyzerMode: "static" //是否生成静态的html分析报告
+        }),
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(
         Object.assign(
@@ -668,7 +676,7 @@ module.exports = function (webpackEnv) {
       //   can be used to reconstruct the HTML if necessary
       new ManifestPlugin({
         fileName: "asset-manifest.json",
-        publicPath: paths.publicUrlOrPath,
+        publicPath: paths.publicUrlOrPath
         // generate: (seed, files, entrypoints) => {
         //   const manifestFiles = files.reduce((manifest, file) => {
         //     manifest[file.name] = file.path;
