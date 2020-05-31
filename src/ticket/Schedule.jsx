@@ -22,45 +22,45 @@ const ScheduleRow = memo(function ScheduleRow(props) {
     isEndStation
   } = props;
   return (
-    <li>
-      <div
+      <li>
+          <div
         className={classnames("icon", {
           "icon-red": isDepartStation || isArriveStation
         })}
       >
-        {isDepartStation ? "出" : isArriveStation ? "到" : leftPad(index, 2, 0)}
-      </div>
-      <div
+              {isDepartStation ? "出" : isArriveStation ? "到" : leftPad(index, 2, 0)}
+          </div>
+          <div
         className={classnames("row", {
           grey: beforeDepartStation || afterArriveStation
         })}
       >
-        <span
+              <span
           className={classnames("station", {
             red: isArriveStation || isDepartStation
           })}
         >
-          {station}
-        </span>
-        <span
+                  {station}
+              </span>
+              <span
           className={classnames("arrtime", {
             red: isArriveStation
           })}
         >
-          {isStartStation ? "始发站" : arriveTime}
-        </span>
-        <span
+                  {isStartStation ? "始发站" : arriveTime}
+              </span>
+              <span
           className={classnames("deptime", {
             red: isDepartStation
           })}
         >
-          {isEndStation ? "终到站" : departTime}
-        </span>
-        <span className="stoptime">
-          {isStartStation || isEndStation ? "-" : stay + "分"}
-        </span>
-      </div>
-    </li>
+                  {isEndStation ? "终到站" : departTime}
+              </span>
+              <span className="stoptime">
+                  {isStartStation || isEndStation ? "-" : stay + "分"}
+              </span>
+          </div>
+      </li>
   );
 });
 
@@ -158,33 +158,33 @@ function Schedule(props) {
 
         setScheduleList(list);
       });
-  }, []);
+  }, [arriveStation, date, departStation, trainNumber]);
 
   return (
-    <div className="qn_dialog">
-      <div className="schedule mask" onClick={toggleIsScheduleVisible}>
-        <div className="dialog" onClick={(e) => e.stopPropagation()}>
-          <h1>列车时刻表</h1>
-          <div className="head">
-            <span className="station">车站</span>
-            <span className="deptime">到达</span>
-            <span className="arrtime">发车</span>
-            <span className="stoptime">停留时间</span>
-          </div>
-          <ul>
-            {scheduleList.map((schedule, index) => {
+      <div className="qn_dialog">
+          <div className="schedule mask" onClick={toggleIsScheduleVisible}>
+              <div className="dialog" onClick={(e) => e.stopPropagation()}>
+                  <h1>列车时刻表</h1>
+                  <div className="head">
+                      <span className="station">车站</span>
+                      <span className="deptime">到达</span>
+                      <span className="arrtime">发车</span>
+                      <span className="stoptime">停留时间</span>
+                  </div>
+                  <ul>
+                      {scheduleList.map((schedule, index) => {
               return (
-                <ScheduleRow
+                  <ScheduleRow
                   key={schedule.station}
                   index={index + 1}
                   {...schedule}
                 ></ScheduleRow>
               );
             })}
-          </ul>
-        </div>
+                  </ul>
+              </div>
+          </div>
       </div>
-    </div>
   );
 }
 

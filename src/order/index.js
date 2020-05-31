@@ -8,8 +8,8 @@ import "./index.css";
 import store from "./store";
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App></App>
-  </Provider>,
+    <Provider store={store}>
+        <App></App>
+    </Provider>,
   document.getElementById("root")
 );

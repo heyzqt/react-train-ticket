@@ -21,7 +21,7 @@ import {
   ACTION_SET_IS_FILTER_VISIBLE,
   ACTION_SET_SEARCH_PARSED
 } from "./actions";
-import { ORDER_PART, ORDER_DURATION } from "./constant";
+import { ORDER_PART } from "./constant";
 
 export default {
   from(state = null, action) {

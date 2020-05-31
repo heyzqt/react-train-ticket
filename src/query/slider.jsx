@@ -50,7 +50,6 @@ function Slider(props) {
     let startHandleEnd = e.targetTouches[0].clientX;
     let allWidth = parseInt(window.getComputedStyle(range.current).width.replace("px", ""));
     let position = (startHandleEnd - startHandleX) / allWidth ;
-    console.log(distance)
 
     if (position < 0) {
       setStart(0);
@@ -70,33 +69,33 @@ function Slider(props) {
       onStartTouchMove,
       false
     );
-  }, []);
+  }, [onStartTouchBegin, onStartTouchMove]);
 
   return (
-    <div className="option">
-      <h3>出发时间</h3>
-      <div className="slider-wrapper">
-        <div className="slider" ref={range}>
-          <div
+      <div className="option">
+          <h3>出发时间</h3>
+          <div className="slider-wrapper">
+              <div className="slider" ref={range}>
+                  <div
             className={classnames("slider-range")}
             style={{
               left: startPercent + "%",
               width: endPercent - startPercent + "%"
             }}
           ></div>
-          <div
+                  <div
             ref={startHandleRef}
             className="slider-handle"
             style={{ left: startPercent + "%" }}
           >
-            <span>{startText}</span>
+                      <span>{startText}</span>
+                  </div>
+                  <div className="slider-handle" style={{ left: endPercent + "%" }}>
+                      <span>{endText}</span>
+                  </div>
+              </div>
           </div>
-          <div className="slider-handle" style={{ left: endPercent + "%" }}>
-            <span>{endText}</span>
-          </div>
-        </div>
       </div>
-    </div>
   );
 }
 

@@ -33,9 +33,9 @@ const Filter = memo(function Filter(props) {
   const { value, name, checked, toggle } = props;
 
   return (
-    <li className={classnames({ checked })} onClick={() => toggle(value)}>
-      {name}
-    </li>
+      <li className={classnames({ checked })} onClick={() => toggle(value)}>
+          {name}
+      </li>
   );
 });
 
@@ -63,12 +63,12 @@ const Option = memo(function Option(props) {
   );
 
   return (
-    <div className="option">
-      <h3>{title}</h3>
-      <ul>
-        {options.map((option) => {
+      <div className="option">
+          <h3>{title}</h3>
+          <ul>
+              {options.map((option) => {
           return (
-            <Filter
+              <Filter
               key={option.value}
               {...option}
               checked={option.value in checkedMap}
@@ -76,8 +76,8 @@ const Option = memo(function Option(props) {
             />
           );
         })}
-      </ul>
-    </div>
+          </ul>
+      </div>
   );
 });
 
@@ -141,22 +141,22 @@ const BottomModal = memo(function BottomModal(props) {
   ];
 
   return (
-    <div className="bottom-modal">
-      <div className="bottom-dialog">
-        <div className="bottom-dialog-content">
-          <div className="title">
-            <span className={classnames("reset")}>重置</span>
-            <span className="ok">确定</span>
-          </div>
-          <div className="options">
-            {optionGroup.map((group) => (
-              <Option {...group} key={group.title} />
+      <div className="bottom-modal">
+          <div className="bottom-dialog">
+              <div className="bottom-dialog-content">
+                  <div className="title">
+                      <span className={classnames("reset")}>重置</span>
+                      <span className="ok">确定</span>
+                  </div>
+                  <div className="options">
+                      {optionGroup.map((group) => (
+                          <Option {...group} key={group.title} />
             ))}
+                  </div>
+                  <Slider></Slider>
+              </div>
           </div>
-          <Slider></Slider>
-        </div>
       </div>
-    </div>
   );
 });
 
@@ -205,36 +205,36 @@ function Bottom(props) {
   } = props;
 
   return (
-    <div className="bottom">
-      <div className="bottom-filters">
-        <span className="item" onClick={toggleOrderType}>
-          <i className="icon">&#xf065;</i>
-          {orderType === ORDER_PART ? "出发 早->晚" : "耗时 短->长"}
-        </span>
-        <span
+      <div className="bottom">
+          <div className="bottom-filters">
+              <span className="item" onClick={toggleOrderType}>
+                  <i className="icon">&#xf065;</i>
+                  {orderType === ORDER_PART ? "出发 早->晚" : "耗时 短->长"}
+              </span>
+              <span
           className={classnames("item", { "item-on": highSpeed })}
           onClick={toggleHighSpeed}
         >
-          <i className="icon">{highSpeed ? "\uf43f" : "\uf43e"}</i>
-          只看高铁动车
-        </span>
-        <span
+                  <i className="icon">{highSpeed ? "\uf43f" : "\uf43e"}</i>
+                  只看高铁动车
+              </span>
+              <span
           className={classnames("item", { "item-on": onlyTickets })}
           onClick={toggleOnlyTickets}
         >
-          <i className="icon">{onlyTickets ? "\uf43d" : "\uf43c"}</i>
-          只看有票
-        </span>
-        <span
+                  <i className="icon">{onlyTickets ? "\uf43d" : "\uf43c"}</i>
+                  只看有票
+              </span>
+              <span
           className={classnames("item", { "item-on": isFilterVisible })}
           onClick={toggleIsFilterVisible}
         >
-          <i className="icon">{"\uf0f7"}</i>
-          综合筛选
-        </span>
-      </div>
-      {isFilterVisible && (
-        <BottomModal
+                  <i className="icon">{"\uf0f7"}</i>
+                  综合筛选
+              </span>
+          </div>
+          {isFilterVisible && (
+          <BottomModal
           ticketTypes={ticketTypes}
           trainTypes={trainTypes}
           departStations={departStations}
@@ -249,7 +249,7 @@ function Bottom(props) {
           arriveTimeEnd={arriveTimeEnd}
         />
       )}
-    </div>
+      </div>
   );
 }
 

@@ -10,14 +10,14 @@ function useNav(departDate, prevDate, nextDate, dispatch) {
       return;
     }
     dispatch(prevDate());
-  }, [isPrevDisabled]);
+  }, [dispatch, isPrevDisabled, prevDate]);
 
   const next = useCallback(() => {
     if (isNextDisabled) {
       return;
     }
     dispatch(nextDate());
-  }, [isNextDisabled]);
+  }, [dispatch, isNextDisabled, nextDate]);
 
   return {
     isPrevDisabled,

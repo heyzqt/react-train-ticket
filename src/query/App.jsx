@@ -79,7 +79,7 @@ function App(props) {
     dispatch(setHighSpeed(JSON.parse(highSpeed)));
 
     dispatch(setSearchParsed(true));
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (!searchParsed) {
@@ -120,23 +120,7 @@ function App(props) {
       dispatch(setDepartStations(depStation));
       dispatch(setArriveStations(arrStation));
     });
-  }, [
-    searchParsed,
-    from,
-    to,
-    departDate,
-    highSpeed,
-    orderType,
-    onlyTickets,
-    checkedTicketTypes,
-    checkedTrainTypes,
-    checkedDepartStations,
-    checkedArriveStations,
-    departTimeStart,
-    departTimeEnd,
-    arriveTimeStart,
-    arriveTimeEnd
-  ]);
+  }, [searchParsed, from, to, departDate, highSpeed, orderType, onlyTickets, checkedTicketTypes, checkedTrainTypes, checkedDepartStations, checkedArriveStations, departTimeStart, departTimeEnd, arriveTimeStart, arriveTimeEnd, dispatch]);
 
   const { isPrevDisabled, isNextDisabled, prev, next } = useNav(
     departDate,
@@ -155,24 +139,24 @@ function App(props) {
       },
       dispatch
     );
-  }, []);
+  }, [dispatch]);
 
   if (!searchParsed) {
     return <div>loading</div>;
   }
 
   return (
-    <div>
-      <Header title={`${from} -> ${to}`} onBack={onBack}></Header>
-      <Nav
+      <div>
+          <Header title={`${from} -> ${to}`} onBack={onBack}></Header>
+          <Nav
         date={departDate}
         prev={prev}
         next={next}
         isPrevDisabled={isPrevDisabled}
         isNextDisabled={isNextDisabled}
       ></Nav>
-      <List list={trainList}></List>
-      <Bottom
+          <List list={trainList}></List>
+          <Bottom
         orderType={orderType}
         highSpeed={highSpeed}
         onlyTickets={onlyTickets}
@@ -191,7 +175,7 @@ function App(props) {
         arriveTimeEnd={arriveTimeEnd}
         {...bottomCbs}
       ></Bottom>
-    </div>
+      </div>
   );
 }
 

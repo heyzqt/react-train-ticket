@@ -84,7 +84,7 @@ function App(props) {
     dispatch(setDepartDate(h0(date)));
 
     dispatch(setSearchParsed(true));
-  }, []);
+  }, [dispatch]);
 
   //设置网页标题
   useEffect(() => {
@@ -120,7 +120,7 @@ function App(props) {
         dispatch(setDurationStr(durationStr));
         dispatch(setTickets(candidates));
       });
-  }, [searchParsed]);
+  }, [departDate, dispatch, searchParsed, trainNum]);
 
   const { prev, next, isPrevDisabled, isNextDisabled } = useNav(
     departDate,
@@ -140,7 +140,7 @@ function App(props) {
       },
       dispatch
     );
-  }, []);
+  }, [dispatch]);
 
   const Schedule = lazy(() => import("./Schedule"));
 
@@ -149,16 +149,16 @@ function App(props) {
   }
 
   return (
-    <div>
-      <Header title={trainNum} onBack={onBack}></Header>
-      <Nav
+      <div>
+          <Header title={trainNum} onBack={onBack}></Header>
+          <Nav
         date={departDate}
         prev={prev}
         next={next}
         isPrevDisabled={isPrevDisabled}
         isNextDisabled={isNextDisabled}
       ></Nav>
-      <Detail
+          <Detail
         departDate={departDate}
         arriveDate={arriveDate}
         departTimeStr={departTimeStr}
@@ -168,8 +168,12 @@ function App(props) {
         trainNumber={trainNum}
         durationStr={durationStr}
         {...detailCbs}
-      ></Detail>
-      <TrainContext.Provider
+      >
+              <span className="left"></span>
+              <span className="schedule">时刻表</span>
+              <span className="right"></span>
+          </Detail>
+          <TrainContext.Provider
         value={{
           trainNum,
           departStation,
@@ -177,20 +181,20 @@ function App(props) {
           departDate
         }}
       >
-        <Candidate tickets={tickets}></Candidate>
-      </TrainContext.Provider>
-      {isScheduleVisible && (
-        <Suspense fallback={<div>Schedule Loading</div>}>
-          <Schedule
+              <Candidate tickets={tickets}></Candidate>
+          </TrainContext.Provider>
+          {isScheduleVisible && (
+          <Suspense fallback={<div>Schedule Loading</div>}>
+              <Schedule
             date={departDate}
             trainNumber={trainNum}
             departStation={departStation}
             arriveStation={arriveStation}
             {...detailCbs}
           ></Schedule>
-        </Suspense>
+          </Suspense>
       )}
-    </div>
+      </div>
   );
 }
 
