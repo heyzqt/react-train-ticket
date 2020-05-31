@@ -30,6 +30,7 @@ import {
   nextDate
 } from "./actions";
 import { useMemo } from "react";
+import { TrainContext } from "./context";
 
 //车票详情页实现思路
 //UI：Header、时间栏、车票详情、座位等级
@@ -168,7 +169,15 @@ function App(props) {
         durationStr={durationStr}
         {...detailCbs}
       ></Detail>
-      <Candidate></Candidate>
+      <TrainContext.Provider
+        value={{
+          trainNum,
+          departStation,
+          arriveStation,
+          departDate
+        }}
+      ></TrainContext.Provider>
+      <Candidate tickets={tickets}></Candidate>
       {isScheduleVisible && (
         <Suspense fallback={<div>Schedule Loading</div>}>
           <Schedule
