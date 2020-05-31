@@ -23,7 +23,7 @@ function useNav(departDate, prevDate, nextDate, dispatch) {
     isPrevDisabled,
     isNextDisabled,
     prev,
-    next
+    next,
   };
 }
 

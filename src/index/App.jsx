@@ -23,7 +23,7 @@ function App(props) {
     departDate,
     isDateSelectorVisible,
     highSpeed,
-    dispatch
+    dispatch,
   } = props;
 
   const onBack = useCallback(() => {
@@ -34,7 +34,7 @@ function App(props) {
     return bindActionCreators(
       {
         exchangeFromTo: actions.exchangeFromTo,
-        showCitySelector: actions.showCitySelector
+        showCitySelector: actions.showCitySelector,
       },
       dispatch
     );
@@ -45,7 +45,7 @@ function App(props) {
       {
         onBack: actions.hideCitySelector,
         fetchCityData: actions.fetchCityData,
-        onSelect: actions.setSelectedCity
+        onSelect: actions.setSelectedCity,
       },
       dispatch
     );
@@ -54,7 +54,7 @@ function App(props) {
   const dateCbs = useMemo(() => {
     return bindActionCreators(
       {
-        onClick: actions.showDateSelector
+        onClick: actions.showDateSelector,
       },
       dispatch
     );
@@ -63,7 +63,7 @@ function App(props) {
   const dateSelectorCbs = useMemo(() => {
     return bindActionCreators(
       {
-        onBack: actions.hideDateSelector
+        onBack: actions.hideDateSelector,
       },
       dispatch
     );
@@ -83,38 +83,38 @@ function App(props) {
   const highSpeedCbs = useMemo(() => {
     return bindActionCreators(
       {
-        toggle: actions.toggleHighSpeed
+        toggle: actions.toggleHighSpeed,
       },
       dispatch
     );
   }, [dispatch]);
 
   return (
-      <div>
-          <Header title="火车票" onBack={onBack}></Header>
-          <form className="form" action="./query.html">
-              <Jounary from={from} to={to} {...cbs}></Jounary>
-              <DepartDate time={departDate} {...dateCbs}></DepartDate>
-              <HighSpeed highSpeed={highSpeed} {...highSpeedCbs}></HighSpeed>
-              <Submit />
-          </form>
-          {/* 优化性能，添加Boolean判断，避免每次App重新渲染时，CitySelector和DateSelector也重新渲染 */}
-          {Boolean(isCitySelectorVisible) && (
-          <CitySelector
+    <div>
+      <Header title="火车票" onBack={onBack}></Header>
+      <form className="form" action="./query.html">
+        <Jounary from={from} to={to} {...cbs}></Jounary>
+        <DepartDate time={departDate} {...dateCbs}></DepartDate>
+        <HighSpeed highSpeed={highSpeed} {...highSpeedCbs}></HighSpeed>
+        <Submit />
+      </form>
+      {/* 优化性能，添加Boolean判断，避免每次App重新渲染时，CitySelector和DateSelector也重新渲染 */}
+      {Boolean(isCitySelectorVisible) && (
+        <CitySelector
           show={isCitySelectorVisible}
           cityData={cityData}
           isLoading={isLoadingCityData}
           {...cityCbs}
         ></CitySelector>
       )}
-          {Boolean(isDateSelectorVisible) && (
-          <DateSelector
+      {Boolean(isDateSelectorVisible) && (
+        <DateSelector
           show={isDateSelectorVisible}
           onSelect={onSelectDate}
           {...dateSelectorCbs}
         ></DateSelector>
       )}
-      </div>
+    </div>
   );
 }
 

@@ -29,7 +29,7 @@ import {
   toggleOrderType,
   toggleHighSpeed,
   toggleOnlyTickets,
-  toggleIsFilterVisible
+  toggleIsFilterVisible,
 } from "./actions";
 import dayjs from "dayjs";
 
@@ -62,7 +62,7 @@ function App(props) {
     ticketTypes,
     trainTypes,
     departStations,
-    arriveStations
+    arriveStations,
   } = props;
 
   const onBack = useCallback(() => {
@@ -109,9 +109,9 @@ function App(props) {
         dataMap: {
           directTrainInfo: {
             trains,
-            filter: { ticketType, trainType, depStation, arrStation }
-          }
-        }
+            filter: { ticketType, trainType, depStation, arrStation },
+          },
+        },
       } = resp.data;
 
       dispatch(setTrainList(trains));
@@ -120,7 +120,24 @@ function App(props) {
       dispatch(setDepartStations(depStation));
       dispatch(setArriveStations(arrStation));
     });
-  }, [searchParsed, from, to, departDate, highSpeed, orderType, onlyTickets, checkedTicketTypes, checkedTrainTypes, checkedDepartStations, checkedArriveStations, departTimeStart, departTimeEnd, arriveTimeStart, arriveTimeEnd, dispatch]);
+  }, [
+    searchParsed,
+    from,
+    to,
+    departDate,
+    highSpeed,
+    orderType,
+    onlyTickets,
+    checkedTicketTypes,
+    checkedTrainTypes,
+    checkedDepartStations,
+    checkedArriveStations,
+    departTimeStart,
+    departTimeEnd,
+    arriveTimeStart,
+    arriveTimeEnd,
+    dispatch,
+  ]);
 
   const { isPrevDisabled, isNextDisabled, prev, next } = useNav(
     departDate,
@@ -135,7 +152,7 @@ function App(props) {
         toggleOrderType,
         toggleHighSpeed,
         toggleOnlyTickets,
-        toggleIsFilterVisible
+        toggleIsFilterVisible,
       },
       dispatch
     );
@@ -146,17 +163,17 @@ function App(props) {
   }
 
   return (
-      <div>
-          <Header title={`${from} -> ${to}`} onBack={onBack}></Header>
-          <Nav
+    <div>
+      <Header title={`${from} -> ${to}`} onBack={onBack}></Header>
+      <Nav
         date={departDate}
         prev={prev}
         next={next}
         isPrevDisabled={isPrevDisabled}
         isNextDisabled={isNextDisabled}
       ></Nav>
-          <List list={trainList}></List>
-          <Bottom
+      <List list={trainList}></List>
+      <Bottom
         orderType={orderType}
         highSpeed={highSpeed}
         onlyTickets={onlyTickets}
@@ -175,7 +192,7 @@ function App(props) {
         arriveTimeEnd={arriveTimeEnd}
         {...bottomCbs}
       ></Bottom>
-      </div>
+    </div>
   );
 }
 

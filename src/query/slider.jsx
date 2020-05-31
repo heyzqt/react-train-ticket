@@ -33,7 +33,7 @@ function Slider(props) {
   const range = useRef();
 
   const lastStartX = useRef();
-  console.log('lastStartX = ', lastStartX);
+  console.log("lastStartX = ", lastStartX);
 
   let startHandleX = 0;
 
@@ -45,8 +45,10 @@ function Slider(props) {
 
   const onStartTouchMove = (e) => {
     let startHandleEnd = e.targetTouches[0].clientX;
-    let allWidth = parseInt(window.getComputedStyle(range.current).width.replace("px", ""));
-    let position = (startHandleEnd - startHandleX) / allWidth ;
+    let allWidth = parseInt(
+      window.getComputedStyle(range.current).width.replace("px", "")
+    );
+    let position = (startHandleEnd - startHandleX) / allWidth;
 
     if (position < 0) {
       setStart(0);
@@ -67,30 +69,30 @@ function Slider(props) {
   }, [onStartTouchBegin, onStartTouchMove]);
 
   return (
-      <div className="option">
-          <h3>出发时间</h3>
-          <div className="slider-wrapper">
-              <div className="slider" ref={range}>
-                  <div
+    <div className="option">
+      <h3>出发时间</h3>
+      <div className="slider-wrapper">
+        <div className="slider" ref={range}>
+          <div
             className={classnames("slider-range")}
             style={{
               left: startPercent + "%",
-              width: endPercent - startPercent + "%"
+              width: endPercent - startPercent + "%",
             }}
           ></div>
-                  <div
+          <div
             ref={startHandleRef}
             className="slider-handle"
             style={{ left: startPercent + "%" }}
           >
-                      <span>{startText}</span>
-                  </div>
-                  <div className="slider-handle" style={{ left: endPercent + "%" }}>
-                      <span>{endText}</span>
-                  </div>
-              </div>
+            <span>{startText}</span>
           </div>
+          <div className="slider-handle" style={{ left: endPercent + "%" }}>
+            <span>{endText}</span>
+          </div>
+        </div>
       </div>
+    </div>
   );
 }
 

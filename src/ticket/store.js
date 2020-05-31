@@ -14,13 +14,13 @@ const store = createStore(
     arriveDate: Date.now(),
     departTimeStr: "",
     arriveTimeStr: "",
-    durationStr:"",
+    durationStr: "",
     departStation: null,
     arriveStation: null,
     trainNum: null,
     tickets: [],
     searchParsed: false,
-    isScheduleVisible: false
+    isScheduleVisible: false,
   },
   composeEnhancers(applyMiddleware(thunk))
 );

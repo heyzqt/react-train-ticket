@@ -22,21 +22,21 @@ function Nav(props) {
     dayjs(h0(date)).locale("zh").format("dddd");
 
   return (
-      <div className="nav">
-          <span
+    <div className="nav">
+      <span
         onClick={prev}
         className={classnames("nav-prev", { "nav-disabled": isPrevDisabled })}
       >
-              前一天
-          </span>
-          <span className="nav-current">{currentDay}</span>
-          <span
+        前一天
+      </span>
+      <span className="nav-current">{currentDay}</span>
+      <span
         onClick={next}
         className={classnames("nav-next", { "nav-disabled": isNextDisabled })}
       >
-              后一天
-          </span>
-      </div>
+        后一天
+      </span>
+    </div>
   );
 }
 
@@ -45,7 +45,7 @@ Nav.propTypes = {
   prev: PropTypes.func.isRequired,
   next: PropTypes.func.isRequired,
   isPrevDisabled: PropTypes.bool.isRequired,
-  isNextDisabled: PropTypes.bool.isRequired
+  isNextDisabled: PropTypes.bool.isRequired,
 };
 
 export default memo(Nav);

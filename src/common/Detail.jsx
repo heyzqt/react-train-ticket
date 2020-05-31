@@ -27,7 +27,7 @@ const Detail = memo(function Detail(props) {
     arriveStation,
     trainNumber,
     durationStr,
-    toggleIsScheduleVisible
+    toggleIsScheduleVisible,
   } = props;
 
   const departDateStr = useMemo(() => {
@@ -39,30 +39,30 @@ const Detail = memo(function Detail(props) {
   }, [arriveDate]);
 
   return (
-      <div className="detail">
-          <div className="content">
-              <div className="left">
-                  <p className="city">{departStation}</p>
-                  <p className="time">{departTimeStr}</p>
-                  <p className="date">{departDateStr}</p>
-              </div>
-              <div className="middle" onClick={() => toggleIsScheduleVisible()}>
-                  <p className="train-name">{trainNumber}</p>
-                  <p className="train-mid">{props.children}</p>
-                  <p className="train-time">耗时{durationStr}</p>
-              </div>
-              <div className="right">
-                  <p className="city">{arriveStation}</p>
-                  <p className="time">{arriveTimeStr}</p>
-                  <p className="date">{arriveDateStr}</p>
-              </div>
-          </div>
+    <div className="detail">
+      <div className="content">
+        <div className="left">
+          <p className="city">{departStation}</p>
+          <p className="time">{departTimeStr}</p>
+          <p className="date">{departDateStr}</p>
+        </div>
+        <div className="middle" onClick={() => toggleIsScheduleVisible()}>
+          <p className="train-name">{trainNumber}</p>
+          <p className="train-mid">{props.children}</p>
+          <p className="train-time">耗时{durationStr}</p>
+        </div>
+        <div className="right">
+          <p className="city">{arriveStation}</p>
+          <p className="time">{arriveTimeStr}</p>
+          <p className="date">{arriveDateStr}</p>
+        </div>
       </div>
+    </div>
   );
 });
 
 const mapStateToProps = (state) => ({
-  state
+  state,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -80,7 +80,7 @@ Detail.propTypes = {
   arriveStation: PropTypes.string.isRequired,
   trainNumber: PropTypes.string.isRequired,
   durationStr: PropTypes.string.isRequired,
-  toggleIsScheduleVisible: PropTypes.func.isRequired
+  toggleIsScheduleVisible: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Detail);

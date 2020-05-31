@@ -19,7 +19,7 @@ import {
   ACTION_SET_ARRIVE_TIME_START,
   ACTION_SET_ARRIVE_TIME_END,
   ACTION_SET_IS_FILTER_VISIBLE,
-  ACTION_SET_SEARCH_PARSED
+  ACTION_SET_SEARCH_PARSED,
 } from "./actions";
 import { ORDER_PART } from "./constant";
 
@@ -212,5 +212,5 @@ export default {
       default:
     }
     return state;
-  }
+  },
 };

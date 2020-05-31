@@ -46,32 +46,32 @@ function Day(props) {
   const dateString = day === now ? "今天" : new Date(day).getDate();
 
   return (
-      <td className={classnames(classes)} onClick={() => onSelect(day)}>
-          {dateString}
-      </td>
+    <td className={classnames(classes)} onClick={() => onSelect(day)}>
+      {dateString}
+    </td>
   );
 }
 
 Day.propTypes = {
   day: PropTypes.number,
-  onSelect: PropTypes.func.isRequired
+  onSelect: PropTypes.func.isRequired,
 };
 
 function Week(props) {
   const { days, onSelect } = props;
 
   return (
-      <tr className="date-table-days">
-          {days.map((day, index) => {
+    <tr className="date-table-days">
+      {days.map((day, index) => {
         return <Day key={index} day={day} onSelect={onSelect}></Day>;
       })}
-      </tr>
+    </tr>
   );
 }
 
 Week.propTypes = {
   days: PropTypes.array.isRequired,
-  onSelect: PropTypes.func.isRequired
+  onSelect: PropTypes.func.isRequired,
 };
 
 function Month(props) {
@@ -115,37 +115,37 @@ function Month(props) {
   }
 
   return (
-      <table className="date-table">
-          <thead>
-              <tr>
-                  <td colSpan="7">
-                      <h5>
-                          {startDay.getFullYear()}年{startDay.getMonth() + 1}月
-                      </h5>
-                  </td>
-              </tr>
-          </thead>
-          <tbody>
-              <tr className="data-table-weeks">
-                  <th>周一</th>
-                  <th>周二</th>
-                  <th>周三</th>
-                  <th>周四</th>
-                  <th>周五</th>
-                  <th className="weekend">周六</th>
-                  <th className="weekend">周日</th>
-              </tr>
-              {weeks.map((week, index) => {
+    <table className="date-table">
+      <thead>
+        <tr>
+          <td colSpan="7">
+            <h5>
+              {startDay.getFullYear()}年{startDay.getMonth() + 1}月
+            </h5>
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr className="data-table-weeks">
+          <th>周一</th>
+          <th>周二</th>
+          <th>周三</th>
+          <th>周四</th>
+          <th>周五</th>
+          <th className="weekend">周六</th>
+          <th className="weekend">周日</th>
+        </tr>
+        {weeks.map((week, index) => {
           return <Week key={index} days={week} onSelect={onSelect}></Week>;
         })}
-          </tbody>
-      </table>
+      </tbody>
+    </table>
   );
 }
 
 Month.propTypes = {
   startingTimeInMonth: PropTypes.number.isRequired,
-  onSelect: PropTypes.func.isRequired
+  onSelect: PropTypes.func.isRequired,
 };
 
 function DateSelector(props) {
@@ -163,27 +163,27 @@ function DateSelector(props) {
   monthSequence.push(now.setMonth(now.getMonth() + 1));
 
   return (
-      <div className={classnames("date-selector", { hidden: !show })}>
-          <Header title="日期选择" onBack={onBack}></Header>
-          <div className="date-selector-tables">
-              {monthSequence.map((month) => {
+    <div className={classnames("date-selector", { hidden: !show })}>
+      <Header title="日期选择" onBack={onBack}></Header>
+      <div className="date-selector-tables">
+        {monthSequence.map((month) => {
           return (
-              <Month
+            <Month
               key={month}
               startingTimeInMonth={month}
               onSelect={onSelect}
             ></Month>
           );
         })}
-          </div>
       </div>
+    </div>
   );
 }
 
 DateSelector.propTypes = {
   show: PropTypes.bool.isRequired,
   onBack: PropTypes.func.isRequired,
-  onSelect: PropTypes.func.isRequired
+  onSelect: PropTypes.func.isRequired,
 };
 
 export default DateSelector;

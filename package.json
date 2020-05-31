@@ -49,6 +49,7 @@
     "postcss-normalize": "8.0.1",
     "postcss-preset-env": "6.7.0",
     "postcss-safe-parser": "4.0.1",
+    "prettier": "^2.0.5",
     "react": "^16.13.1",
     "react-app-polyfill": "^1.0.6",
     "react-dev-utils": "^10.2.1",
@@ -75,7 +76,7 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
-    "format": "eslint src/**/*.{jsx,js} --fix"
+    "format": "prettier src/**/*.{jsx,js,css,scss,md} --write && eslint src/**/*.{jsx,js} --fix"
   },
   "eslintConfig": {
     "extends": [
@@ -100,7 +101,12 @@
     },
     "lint-staged": {
       "*.{js,jsx}": [
+        "prettier --write",
         "eslint --fix",
+        "git add"
+      ],
+      "*.{css, scss, md}": [
+        "prettier --write",
         "git add"
       ]
     }

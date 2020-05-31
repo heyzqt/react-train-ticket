@@ -9,7 +9,7 @@ import {
   ACTION_SET_TICKETS,
   ACTION_SET_SEARCH_PARSED,
   ACTION_SET_IS_SCHEDULE_VISIBLE,
-  ACTION_SET_DURATION_STR
+  ACTION_SET_DURATION_STR,
 } from "./actions";
 
 export default {
@@ -111,5 +111,5 @@ export default {
       default:
     }
     return state;
-  }
+  },
 };

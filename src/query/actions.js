@@ -13,9 +13,11 @@ export const ACTION_SET_CHECKED_TICKET_TYPES = "query/SET_CHECKED_TICKET_TYPES";
 export const ACTION_SET_TRAIN_TYPES = "query/SET_TRAIN_TYPES";
 export const ACTION_SET_CHECKED_TRAIN_TYPES = "query/SET_CHECKED_TRAIN_TYPES";
 export const ACTION_SET_DEPART_STATIONS = "query/SET_DEPART_STATIONS";
-export const ACTION_SET_CHECKED_DEPART_STATIONS = "query/SET_CHECKED_DEPART_STATIONS";
+export const ACTION_SET_CHECKED_DEPART_STATIONS =
+  "query/SET_CHECKED_DEPART_STATIONS";
 export const ACTION_SET_ARRIVE_STATIONS = "query/SET_ARRIVE_STATIONS";
-export const ACTION_SET_CHECKED_ARRIVE_STATIONS = "query/SET_CHECKED_ARRIVE_STATIONS";
+export const ACTION_SET_CHECKED_ARRIVE_STATIONS =
+  "query/SET_CHECKED_ARRIVE_STATIONS";
 export const ACTION_SET_DEPART_TIME_START = "query/SET_DEPART_TIME_START";
 export const ACTION_SET_DEPART_TIME_END = "query/SET_DEPART_TIME_END";
 export const ACTION_SET_ARRIVE_TIME_START = "query/SET_ARRIVE_TIME_START";
@@ -26,25 +28,25 @@ export const ACTION_SET_SEARCH_PARSED = "query/SET_SEARCH_PARSED";
 export function setFrom(from) {
   return {
     type: ACTION_SET_FROM,
-    payload: from
+    payload: from,
   };
 }
 export function setTo(to) {
   return {
     type: ACTION_SET_TO,
-    payload: to
+    payload: to,
   };
 }
 export function setDepartDate(departDate) {
   return {
     type: ACTION_SET_DEPART_DATE,
-    payload: departDate
+    payload: departDate,
   };
 }
 export function setTrainList(trainList) {
   return {
     type: ACTION_SET_TRAIN_LIST,
-    payload: trainList
+    payload: trainList,
   };
 }
 export function toggleOrderType() {
@@ -53,12 +55,12 @@ export function toggleOrderType() {
     if (orderType === ORDER_PART) {
       dispatch({
         type: ACTION_SET_ORDER_TYPE,
-        payload: ORDER_DURATION
+        payload: ORDER_DURATION,
       });
     } else {
       dispatch({
         type: ACTION_SET_ORDER_TYPE,
-        payload: ORDER_PART
+        payload: ORDER_PART,
       });
     }
   };
@@ -66,7 +68,7 @@ export function toggleOrderType() {
 export function setHighSpeed(highSpeed) {
   return {
     type: ACTION_SET_HIGH_SPEED,
-    payload: highSpeed
+    payload: highSpeed,
   };
 }
 export function toggleHighSpeed() {
@@ -80,80 +82,80 @@ export function toggleOnlyTickets() {
     const { onlyTickets } = getState();
     dispatch({
       type: ACTION_SET_ONLY_TICKETS,
-      payload: !onlyTickets
+      payload: !onlyTickets,
     });
   };
 }
 export function setTicketTypes(ticketTypes) {
   return {
     type: ACTION_SET_TICKET_TYPES,
-    payload: ticketTypes
+    payload: ticketTypes,
   };
 }
 export function setCheckedTicketTypes(checkedTicketTypes) {
   return {
     type: ACTION_SET_CHECKED_TICKET_TYPES,
-    payload: checkedTicketTypes
+    payload: checkedTicketTypes,
   };
 }
 export function setTrainTypes(trainTypes) {
   return {
     type: ACTION_SET_TRAIN_TYPES,
-    payload: trainTypes
+    payload: trainTypes,
   };
 }
 export function setCheckedTrainTypes(checkedTrainTypes) {
   return {
     type: ACTION_SET_CHECKED_TRAIN_TYPES,
-    payload: checkedTrainTypes
+    payload: checkedTrainTypes,
   };
 }
 export function setDepartStations(departStations) {
   return {
     type: ACTION_SET_DEPART_STATIONS,
-    payload: departStations
+    payload: departStations,
   };
 }
 export function setCheckedDepartStations(checkedDepartStations) {
   return {
     type: ACTION_SET_CHECKED_DEPART_STATIONS,
-    payload: checkedDepartStations
+    payload: checkedDepartStations,
   };
 }
 export function setArriveStations(arriveStations) {
   return {
     type: ACTION_SET_ARRIVE_STATIONS,
-    payload: arriveStations
+    payload: arriveStations,
   };
 }
 export function setCheckedArriveStations(checkedArriveStations) {
   return {
     type: ACTION_SET_CHECKED_ARRIVE_STATIONS,
-    payload: checkedArriveStations
+    payload: checkedArriveStations,
   };
 }
 export function setDepartTimeStart(departTimeStart) {
   return {
     type: ACTION_SET_DEPART_TIME_START,
-    payload: departTimeStart
+    payload: departTimeStart,
   };
 }
 export function setDepartTimeEnd(departTimeEnd) {
   return {
     type: ACTION_SET_DEPART_TIME_END,
-    payload: departTimeEnd
+    payload: departTimeEnd,
   };
 }
 export function setArriveTimeStart(arriveTimeStart) {
   return {
     type: ACTION_SET_ARRIVE_TIME_START,
-    payload: arriveTimeStart
+    payload: arriveTimeStart,
   };
 }
 export function setArriveTimeEnd(arriveTimeEnd) {
   return {
     type: ACTION_SET_ARRIVE_TIME_END,
-    payload: arriveTimeEnd
+    payload: arriveTimeEnd,
   };
 }
 export function toggleIsFilterVisible() {
@@ -161,14 +163,14 @@ export function toggleIsFilterVisible() {
     const { isFilterVisible } = getState();
     dispatch({
       type: ACTION_SET_IS_FILTER_VISIBLE,
-      payload: !isFilterVisible
+      payload: !isFilterVisible,
     });
   };
 }
 export function setSearchParsed(searchParsed) {
   return {
     type: ACTION_SET_SEARCH_PARSED,
-    payload: searchParsed
+    payload: searchParsed,
   };
 }
 

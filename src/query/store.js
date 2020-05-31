@@ -33,7 +33,7 @@ const store = createStore(
     arriveTimeStart: 0, //到达开始时间
     arriveTimeEnd: 24, //到达离开时间
     isFilterVisible: false, //是否显示筛选框
-    searchParsed: false //是否解析完url
+    searchParsed: false, //是否解析完url
   },
   composeEnhancers(applyMiddleware(thunk))
 );

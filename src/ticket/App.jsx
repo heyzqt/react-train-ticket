@@ -27,7 +27,7 @@ import {
   setSearchParsed,
   toggleIsScheduleVisible,
   prevDate,
-  nextDate
+  nextDate,
 } from "./actions";
 import { useMemo } from "react";
 import { TrainContext } from "./context";
@@ -70,7 +70,7 @@ function App(props) {
     searchParsed,
     isScheduleVisible,
 
-    dispatch
+    dispatch,
   } = props;
 
   //解析url参数
@@ -112,7 +112,7 @@ function App(props) {
           departTimeStr,
           arriveTimeStr,
           arriveDate,
-          durationStr
+          durationStr,
         } = detail;
         dispatch(setDepartTimeStr(departTimeStr));
         dispatch(setArriveTimeStr(arriveTimeStr));
@@ -136,7 +136,7 @@ function App(props) {
   const detailCbs = useMemo(() => {
     return bindActionCreators(
       {
-        toggleIsScheduleVisible
+        toggleIsScheduleVisible,
       },
       dispatch
     );
@@ -149,16 +149,16 @@ function App(props) {
   }
 
   return (
-      <div>
-          <Header title={trainNum} onBack={onBack}></Header>
-          <Nav
+    <div>
+      <Header title={trainNum} onBack={onBack}></Header>
+      <Nav
         date={departDate}
         prev={prev}
         next={next}
         isPrevDisabled={isPrevDisabled}
         isNextDisabled={isNextDisabled}
       ></Nav>
-          <Detail
+      <Detail
         departDate={departDate}
         arriveDate={arriveDate}
         departTimeStr={departTimeStr}
@@ -169,32 +169,32 @@ function App(props) {
         durationStr={durationStr}
         {...detailCbs}
       >
-              <span className="left"></span>
-              <span className="schedule">时刻表</span>
-              <span className="right"></span>
-          </Detail>
-          <TrainContext.Provider
+        <span className="left"></span>
+        <span className="schedule">时刻表</span>
+        <span className="right"></span>
+      </Detail>
+      <TrainContext.Provider
         value={{
           trainNum,
           departStation,
           arriveStation,
-          departDate
+          departDate,
         }}
       >
-              <Candidate tickets={tickets}></Candidate>
-          </TrainContext.Provider>
-          {isScheduleVisible && (
-          <Suspense fallback={<div>Schedule Loading</div>}>
-              <Schedule
+        <Candidate tickets={tickets}></Candidate>
+      </TrainContext.Provider>
+      {isScheduleVisible && (
+        <Suspense fallback={<div>Schedule Loading</div>}>
+          <Schedule
             date={departDate}
             trainNumber={trainNum}
             departStation={departStation}
             arriveStation={arriveStation}
             {...detailCbs}
           ></Schedule>
-          </Suspense>
+        </Suspense>
       )}
-      </div>
+    </div>
   );
 }
 
